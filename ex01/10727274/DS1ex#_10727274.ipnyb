@@ -1,0 +1,77 @@
+runtime = 0 ;
+numsave = 0;
+time = 0 ;
+No = 1 ;
+
+def number(input_):
+    number = []
+    for i in range(input_) :
+        number.append(i) 
+
+    need = 0 
+    for i in range(input_) :
+        if ( i == 0 ) : need = need + i
+        else : need = need * 10 + i
+    return need
+
+
+def Recursion(maximum, number, input_, runtime ) :
+    global No
+    global numsave
+    global time
+    j = 0 
+    find = 0
+
+    if ( number <= maximum and runtime < 1000 ) :
+        need = str(number)
+
+        len_ = len(need)
+
+        if ( len_ < input_ ) : need = "0" + str( number)
+
+        for  i in range (input_ - 1 )  :
+            j = i + 1
+            while j < input_  :
+
+                if ( need[i] == need[j] ) : find = 1
+                j = j + 1 
+        if ( find == 0 ) :
+            No = No + 1
+            print("[",No,"]",need)
+        Recursion(maximum,number+1,input_,runtime+1)
+    elif ( runtime == 1000 ) :
+        numsave = number 
+        time = time + 1
+    else :
+        numsave = number
+
+
+
+
+def main():
+    global numsave
+    global runtime
+    input_ = int(input("輸入數字:"))
+
+
+    number2 = number(input_)
+
+    maximum = 1 
+    for i in range(input_):
+        maximum = maximum * 10 
+    maximum = maximum - 1 
+    print(maximum)
+
+    while ( numsave <= maximum ) :
+        runtime = 0 
+        if ( time > 0 ) : number2 = numsave
+        Recursion( maximum, number2, input_ , runtime)
+
+
+
+
+
+
+
+main()
+#main()
